@@ -1,0 +1,101 @@
+#include "helpers.h"
+#include <stdio.h>
+#include <math.h>
+#include <cs50.h>
+
+
+// Convert image to grayscale
+void grayscale(int height, int width, RGBTRIPLE image[height][width])
+{
+    int average;
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0 ; j < width; j++)
+        {
+            average = (int) round((float) (image[i][j].rgbtRed + image[i][j].rgbtGreen + image[i][j].rgbtBlue) / 3);
+            image[i][j].rgbtRed = average;
+            image[i][j].rgbtGreen = average;
+            image[i][j].rgbtBlue = average;
+        }
+    }
+    return;
+}
+
+// Reflect image horizontally
+void reflect(int height, int width, RGBTRIPLE image[height][width])
+{
+    
+    int half_width = (width - (width % 2)) / 2 ;
+    RGBTRIPLE temp;
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < half_width; j++ )
+        {
+            temp = image[i][j];
+            image[i][j] = image[i][width - 1 - j];
+            image[i][width - 1 - j] = temp;
+        }
+         
+    }
+    return;
+}
+
+// Blur image
+void blur(int height, int width, RGBTRIPLE image[height][width])
+{
+    int averagered;
+    int averagegreen;
+    int averageblue;
+    int counter;
+    RGBTRIPLE image_dump[height][width];
+    
+    for(int i = 0; i < height; i++)
+    {
+        for(int j = 0; j < width; j++)
+        {
+           image_dump[i][j] = image[i][j];
+        }
+    }
+
+
+    
+    for(int i = 0; i < height ; i++)
+    {
+        for(int j = 0; j < width ; j++)
+        {
+            averagered = 0;
+            averagegreen = 0;
+            averageblue = 0;
+            counter = 0;
+            
+            for(int x = i - 1; x <= i + 1; x++)
+            {
+                for(int y = j - 1; y <= j + 1; y++)
+                {
+                    //checks if out of bound
+                    if( x >= 0 && y >= 0 && x < height && y < width )
+                    {
+                        averagered += image_dump[x][y].rgbtRed;
+                        averagegreen += image_dump[x][y].rgbtGreen;
+                        averageblue += image_dump[x][y].rgbtBlue;
+                        counter ++;
+                    }
+
+                }
+            }
+            image[i][j].rgbtRed = (int) round((float)(averagered / counter));
+            image[i][j].rgbtGreen = (int) round((float)(averagegreen / counter));
+            image[i][j].rgbtBlue = (int) round((float)(averageblue / counter));
+        }
+    }
+
+    return;
+    
+
+}
+
+// Detect edges
+void edges(int height, int width, RGBTRIPLE image[height][width])
+{
+    return;
+}
