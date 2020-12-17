@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>2021 Countdown</title>
+                <script>
+            function refresh()
+            {
+                location.reload();
+            }
+            function percentage()
+            {
+                var today = new Date();
+                var current = new Date(today.getTime());
+                var previous = new Date(today.getFullYear(), 0, 1);
+                let number_of_days = Math.ceil((current - previous + 1) / 86400000);
+                if (number_of_days > 365)
+                {
+                    number_of_days -= 365;
+                }
+                let per = Math.round((number_of_days/365) * 100)
+                document.getElementsByClassName('progress-bar').item(0).setAttribute('style','width:'+Number(per)+'%');
+                document.querySelector("#nb_de_jour").innerHTML ="There are " + (365 - number_of_days) + " days until 2021";
+            }
+            window.onload = percentage;
+        </script>
+    </head>
+    <body>
+        <h1 class = "title">2021 Countdown</h1>
+        <!--All my hyperlinks -->
+        <a href="index.html"><p class = "hyperlink">Return Home</a>,
+
+        <a href="christmas.html"><p class = "hyperlink">Christmas Countdown</a>,
+
+        <a href="mybirthday.html"><p class = "hyperlink">Jérémie's Birthday Countdown</a>
+
+        <button name="button" value="OK" type="button" onclick="refresh()" class = "button">REFRESH</button>
+
+        <p class = "image"><img src="2021.jpg" width = "600" height = "500"></p>
+        <hr>
+        <b><br><div id = "nb_de_jour" class = "date">
+            0
+        </div></b>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+    </body>
+</html>
