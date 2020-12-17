@@ -1,0 +1,27 @@
+.title
+{
+    text-align: center;
+    color:green;
+}
+.hyperlink
+{
+    text-align: center;
+    font-size: 12px;
+    font-style:italic;
+}
+.image
+{
+    text-align: center;
+    border:5px solid black;
+}
+.date
+{
+    text-align: center;
+    color:purple;
+}
+.button
+{
+    color:red;
+    border:5px solid black;
+    background-color:green;
+}
