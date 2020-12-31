@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Manage Users
+{% endblock %}
+
+{% block main %}
+<form action="/manage" method="post">
+  <table class="table">
+    <thead>
+      <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Admin</th>
+          <th scope="col">Creator</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for row in user_list %}
+      <tr>
+        <th >{{row["id"]}}</th>
+        <td>{{row["username"]}}</td>
+        {% if row["admin"] == 1 %}
+          <td>True</td>
+        {% else %}
+          <td>False</td>
+        {% endif %}
+        {% if row["creator"] == 1 %}
+          <td>True</td>
+        {% else %}
+          <td>False</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+
+  <select class="form-select" aria-label="Default select example" id="user" name="user">
+    <option selected value="0">     Choose a User     </option>
+    {% for row in user_list %}
+      <option>{{row["username"]}}</option>
+    {% endfor %}
+  </select>
+  <br>
+  <br>
+  <select class="form-select" aria-label="Default select example" id="action" name="action">
+    <option selected value="0">     Action on this user     </option>
+    <option value="1">Admin or Unadmin</option>
+    <option value="2">Creator or Uncreator</option>
+    <option value="3">Delete User</option>
+  </select>
+  <br>
+  <br>
+  <button class="btn btn-primary" type="submit">Commit changes</button>
+</form>
+
+
+
+
+{% endblock %}

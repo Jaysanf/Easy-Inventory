@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+  {% if session.username == "admin" or session.username == "creator"%}
+    <form action="/history" method="post">
+      <select class="form-select" aria-label="Default select example" id="user" name="item" >
+      <option selected value="0">     Choose an Inventory to Delete    </option>
+      {% for row in inventories %}
+        <option>{{row[0]["date"]}}</option>
+      {% endfor %}
+      </select>
+      <br>
+      <br>
+      <button class="btn btn-primary" type="submit">Delete</button>
+    </form>
+
+  {% endif %}
+  <br>
+
+  {% for inventory in inventories %}
+  <table class="table">
+      <h6>Inventory taken by {{inventory[0]["user"]}}  on {{inventory[0]["date"]}}</h6>
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Inventory</th>
+        <th scope="col">Gamma</th>
+        <th scope="col">Difference</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in inventory %}
+      <tr>
+        <th scope="row">{{item["name"]}}</th>
+        <td>{{item["amount"]}}</td>
+        <td>{{item["gamma"]}}</td>
+        <td>{{item["diff"]}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endfor %}
+{% endblock %}
