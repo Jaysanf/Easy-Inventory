@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Manage Procedure
+{% endblock %}
+
+{% block main %}
+<script type="text/javascript">
+    function EnableDisableTextBox(values) {
+        var selectedValue = values.options[values.selectedIndex].value;
+        var name = document.getElementById("name");
+        name.disabled = (selectedValue == 1 || selectedValue == 3) ? false : true;
+        if (!name.disabled) {
+            name.focus();
+        }
+        var quantity = document.getElementById("quantity");
+        quantity.disabled = selectedValue == 1 || selectedValue == 3 ? false : true;
+        if (!quantity.disabled) {
+            quantity.focus();
+        }
+        var multiplier = document.getElementById("multiplier");
+        multiplier.disabled = selectedValue == 1 || selectedValue == 3 ? false : true;
+        if (!multiplier.disabled) {
+            multiplier.focus();
+        }
+        var multiplier_item = document.getElementById("multiplier_item");
+        multiplier_item.disabled = selectedValue == 1 || selectedValue == 3 ? false : true;
+        if (!multiplier_item.disabled) {
+            multiplier_item.focus();
+        }
+
+
+    }</script>
+
+
+<h1 class="display-6">All Procedures</h1>
+<form action="/procedure" method="post">
+  <table class="table">
+    <thead>
+      <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Units</th>
+          <th scope="col">Multiplier</th>
+          <th scope="col">Units of Multiplier</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for row in procedures %}
+      <tr>
+        <th >{{row["name"]}}</th>
+        <td>{{row["quantity"]}}</td>
+        <td>{{row["multiplier"]}}</td>
+        <td>{{row["multiplier_item"]}}</td>
+      </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+
+  <select class="form-select" aria-label="Default select example" id="user" name="item" >
+  <option selected value="0">     Choose an Item    </option>
+  {% for row in procedures %}
+    <option>{{row["name"]}}</option>
+  {% endfor %}
+  </select>
+  <br>
+  <br>
+  <select class="form-select" aria-label="Default select example" id="action" name="action" onchange = "EnableDisableTextBox(this)"}
+});>
+    <option selected value="0">     Action     </option>
+    <option  value="1">Edit</option>
+    <option  value="2">Delete</option>
+    <option value="3">Add a new one </option>
+  </select>
+  <br>
+  <span>* Note that if you choose "Add a new one" , the item selected before will not affect anything.</span>
+  <br>
+  <br>
+
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Name of Item" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled="disabled" id="name" name="name">
+    <span class="input-group-text" id="basic-addon2">Name of The Item I.e: Ice Cream</span>
+  </div>
+
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Units" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled="disabled" id="quantity" name="quantity" >
+    <span class="input-group-text" id="basic-addon2">Units of The Item I.e: Buckets</span>
+  </div>
+
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Multipliers" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled="disabled" id="multiplier" name="multiplier">
+    <span class="input-group-text" id="basic-addon2">A Number I.e: 5,5.5,etc. &nbsp; <b>Note: Leave it blank if there is no Multiplier</b></span>
+  </div>
+
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Units of Multiplier" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled="disabled" id="multiplier_item" name="multiplier_item">
+    <span class="input-group-text" id="basic-addon2">Units of Multiplier I.e: Box &nbsp; <b>Note: Leave it blank if there is no Multiplier</b></span>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Commit changes</button>
+</form>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,18 @@
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Confirmation
+{% endblock %}
+
+{% block main %}
+<h1>{{message}}</h1>
+<form method="POST" action="/confirm">
+<a href="/manage">CANCEL</a>
+{% if message == "You are about to uncreator yourself!" %}
+<button class="pure-button button-warning confirm" type="submit" name="button" value="0">Uncreator Myself</button>
+{% else %}
+<button class="pure-button button-warning confirm" type="submit" name="button" value="1">Delete my account</button>
+{% endif %}
+</form>
+{% endblock %}

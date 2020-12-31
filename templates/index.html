@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Take Inventory
+{% endblock %}
+
+{% block main %}
+<form action="/" method="post">
+  {% for rows in procedures %}
+    <h1 class="display-6">{{rows["name"]}}</h1>
+    {% if rows["multiplier"] != "" %}
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter the number of {{rows['multiplier_item']}} of {{rows['name']}}
+        (If it's a decimal put a .)" aria-label="Recipient's username" aria-describedby="basic-addon2"  id="name" name="multiplier.{{rows['name']}}">
+        <span class="input-group-text" id="basic-addon2">{{rows["multiplier_item"]}} (x {{rows["multiplier"]}})</span>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter the number of unity of {{rows['name']}}
+        (If it's a decimal put a .)" aria-label="Recipient's username" aria-describedby="basic-addon2"  id="name" name="unit.{{rows['name']}}">
+        <span class="input-group-text" id="basic-addon2">{{rows["_item"]}}</span>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter the Gamma of {{rows['name']}}
+        (If it's a decimal put a .)" aria-label="Recipient's username" aria-describedby="basic-addon2"  id="quantity" name="gamma.{{rows['name']}}">
+        <span class="input-group-text" id="basic-addon2">{{rows['name']}}</span>
+      </div>
+    {% else %}
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter the number of unity of {{rows['name']}}
+        (If it's a decimal put a .)" aria-label="Recipient's username" aria-describedby="basic-addon2"  id="quantity" name="unit.{{rows['name']}}">
+        <span class="input-group-text" id="basic-addon2">{{rows['name']}}</span>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter the Gamma of {{rows['name']}}
+        (If it's a decimal put a .)" aria-label="Recipient's username" aria-describedby="basic-addon2"  id="quantity" name="gamma.{{rows['name']}}">
+        <span class="input-group-text" id="basic-addon2">{{rows['name']}}</span>
+      </div>
+    {% endif %}
+  {% endfor %}
+  <button class="btn btn-primary" type="submit">Confirm</button>
+</form>
+{% endblock %}
