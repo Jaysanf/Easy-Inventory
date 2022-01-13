@@ -49,3 +49,5 @@ difference between both. If you are an admin or a creator, you can select a tabl
 selecting the date in a drop down menu and then delete it. So if a user makes a mistake,
 he just have to resubmit a form and an admin or creator can go ahead and delete the table
 with a mistake.
+
+** Flask run to start
